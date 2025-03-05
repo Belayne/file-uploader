@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "tsx --watch app.ts"
+    "start-dev": "npx @tailwindcss/cli -i ./public/input.css -o ./public/styles.css --watch & tsx --watch app.ts"
   },
   "author": "Naol Derara",
   "license": "ISC",

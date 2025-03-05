@@ -5,6 +5,7 @@ import expressSession from "express-session";
 import dotenv from "dotenv";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { PrismaClient } from "@prisma/client";
+import indexRouter from "./routes/indexRouter";
 
 dotenv.config();
 
@@ -32,10 +33,12 @@ app.use(
 
 app.use(passport.session());
 
-//Make user available to all the views if authenticaed
+//Make user obj available to all the views if authenticaed
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
+
+app.use(indexRouter);
 
 app.listen(3000, () => console.log("App listening on port 3000"));
