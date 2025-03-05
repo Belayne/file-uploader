@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//From https://github.com/kleydon/prisma-session-store?tab=readme-ov-file#model
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.Text
+  expiresAt DateTime
+}
+
+model User {
+  id       String   @id @default(uuid())
+  username String
+  password String
+  Files    File[]
+  Folder   Folder[]
+}
+
+model File {
+  id          String   @id @default(uuid())
+  name        String
+  file_size   Int
+  createdAt   DateTime @default(now())
+  uploader    User     @relation(fields: [uploader_id], references: [id])
+  uploader_id String
+}
+
+model Folder {
+  id       String @id @default(uuid())
+  name     String
+  owner    User   @relation(fields: [owner_id], references: [id])
+  owner_id String
+}

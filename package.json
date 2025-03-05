@@ -1,0 +1,35 @@
+{
+  "name": "file-uploader",
+  "version": "1.0.0",
+  "description": "A cloud storage service",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "tsx --watch app.ts"
+  },
+  "author": "Naol Derara",
+  "license": "ISC",
+  "dependencies": {
+    "@quixo3/prisma-session-store": "^3.1.13",
+    "@tailwindcss/cli": "^4.0.9",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-sesssion": "^1.15.5",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "tailwindcss": "^4.0.9"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.1",
+    "@types/node": "^22.13.9",
+    "@types/passport": "^1.0.17",
+    "@types/passport-local": "^1.0.38",
+    "prisma": "^6.4.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
