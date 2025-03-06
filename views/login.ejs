@@ -3,9 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
     <title>Log in to UppIt</title>
   </head>
   <body>
     <%- include('./partials/header') %>
+    <form
+      action="/login"
+      method="POST"
+      class="mx-auto flex flex-col gap-3 w-md mt-30"
+    >
+      <input
+        class="border rounded-sm p-2 text-md border-neutral-400"
+        type="text"
+        placeholder="Username"
+        required
+        name="username"
+        id="username"
+      />
+      <input
+        class="border rounded-sm p-2 text-md border-neutral-400"
+        type="password"
+        required
+        placeholder="Password"
+        id="password"
+        name="password"
+      />
+      <button
+        class="bg-black text-white text-md font-bold py-2 rounded-sm hover:cursor-pointer"
+        type="submit"
+      >
+        Login
+      </button>
+      <a class="underline text-blue-600" href="/signup"
+        >New to UppIt? Register now!</a
+      >
+    </form>
   </body>
 </html>
