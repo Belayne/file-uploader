@@ -46,6 +46,9 @@
       <a class="underline text-blue-600" href="/login"
         >Already registerd? Log in</a
       >
+      <% if(locals.errors) {errors.forEach(error => {%>
+      <p class="text-red-600"><%= error.msg%></p>
+      <% }) }%>
     </form>
   </body>
 </html>
