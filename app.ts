@@ -8,6 +8,7 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { PrismaClient } from "@prisma/client";
 import indexRouter from "./routes/indexRouter";
 import authRouter from "./routes/authRouter";
+import uploadRouter from "./routes/uploadRouter";
 
 dotenv.config();
 configPassport();
@@ -43,5 +44,6 @@ app.use((req, res, next) => {
 
 app.use(indexRouter);
 app.use(authRouter);
+app.use(uploadRouter);
 
 app.listen(3000, () => console.log("App listening on port 3000"));

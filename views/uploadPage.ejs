@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Upload a file</title>
+  </head>
+  <body>
+    <%- include("./partials/header") %>
+    <main>
+      <form action="/upload" method="POST" class="flex flex-col gap-5 w-md mx-auto mt-30">
+        <input type="file" name="file" id="file" class="w-fit text-neutral-500 file:bg-neutral-100 file:border-neutral-300 file:border file:text-black file:mr-4 file:rounded-sm file:p-2 hover:cursor-pointer file:cursor-pointer" />
+        <button
+        class="bg-black text-white text-md font-bold py-2 rounded-sm hover:cursor-pointer"
+        type="submit"
+      >Upload file
+      </form>
+    </main>
+  </body>
+</html>

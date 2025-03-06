@@ -20,7 +20,13 @@
           href="/login"
           >Login</a
         >
-        <%} %>
+        <%} else { %>
+        <a
+          class="border mt-2 block p-2 px-5 w-fit text-black rounded-md border-gray-400 bg-gray-100 hover:bg-black hover:text-white transition-colors"
+          href="/upload"
+          >Upload file</a
+        >
+        <% } %>
       </div>
     </main>
   </body>
