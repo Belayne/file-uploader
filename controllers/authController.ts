@@ -2,6 +2,7 @@ import { body } from "express-validator";
 import { validationResult } from "express-validator";
 import client from "../prisma/prismaClient";
 import bcryptjs from "bcryptjs";
+import passport from "passport";
 
 const signupValidations = [
   body("username")
@@ -29,22 +30,25 @@ const signupValidations = [
 ];
 
 const authController = {
+  //Get /login
   showLoginPage: (req, res) => {
     if (res.locals.user) {
-      res.redirect("/");
+      return res.redirect("/");
     }
 
     res.render("login");
   },
 
+  //Get /signup
   showSignupPage: (req, res) => {
     if (res.locals.user) {
-      res.redirect("/");
+      return res.redirect("/");
     }
 
     res.render("signup");
   },
 
+  //Post /signup
   createUser: async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -65,6 +69,23 @@ const authController = {
     } catch (error) {
       next(error);
     }
+  },
+
+  //Post /login
+  loginUser: async (req, res, next) => {
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login",
+    })(req, res, next);
+  },
+
+  logout: async (req, res, next) => {
+    req.logout((error: Error) => {
+      if (error) {
+        return next(error);
+      }
+      res.redirect("/");
+    });
   },
 };
 

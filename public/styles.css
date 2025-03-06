@@ -237,6 +237,9 @@
   .mt-30 {
     margin-top: calc(var(--spacing) * 30);
   }
+  .mr-auto {
+    margin-right: auto;
+  }
   .ml-auto {
     margin-left: auto;
   }
@@ -290,6 +293,9 @@
   }
   .items-center {
     align-items: center;
+  }
+  .justify-between {
+    justify-content: space-between;
   }
   .justify-evenly {
     justify-content: space-evenly;

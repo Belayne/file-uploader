@@ -1,15 +1,16 @@
 import express from "express";
-import passport from "passport";
 import path from "path";
 import expressSession from "express-session";
 import dotenv from "dotenv";
+import passport from "passport";
+import configPassport from "./auth_config/configPassport";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { PrismaClient } from "@prisma/client";
 import indexRouter from "./routes/indexRouter";
 import authRouter from "./routes/authRouter";
 
 dotenv.config();
-
+configPassport();
 const app = express();
 app.set("views", path.join(path.dirname("./"), "views"));
 app.set("view engine", "ejs");

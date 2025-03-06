@@ -14,11 +14,13 @@
         <p class="text-neutral-500">
           Keep your files safe and accessible whenever you need them.
         </p>
+        <% if(!locals.user) {%>
         <a
           class="border mt-2 block p-2 px-5 w-fit text-black rounded-md border-gray-400 bg-gray-100 hover:bg-black hover:text-white transition-colors"
           href="/login"
           >Login</a
         >
+        <%} %>
       </div>
     </main>
   </body>

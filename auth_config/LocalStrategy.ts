@@ -26,7 +26,7 @@ const verifyFunction = async (
 
     return done(null, user);
   } catch (error) {
-    done(error);
+    return done(error);
   }
 };
 
