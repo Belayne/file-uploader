@@ -1,5 +1,7 @@
 import multer from "multer";
+import client from "../prisma/prismaClient";
 
+//Sets multer storage file directory and filename
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log("file: ", file);
@@ -24,8 +26,16 @@ const uploadController = {
 
   uploadFile: upload.single("file"),
 
-  handleUpload: (req, res) => {
-    console.log(req.file);
+  handleUpload: async (req, res) => {
+    const file = await client.file.create({
+      data: {
+        name: req.file.originalname,
+        file_size: req.file.size,
+        path: req.file.path,
+        uploader: { connect: { id: res.locals.user.id } },
+      },
+    });
+    console.log(file);
     res.redirect("/");
   },
 };

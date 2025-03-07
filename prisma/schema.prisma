@@ -27,6 +27,7 @@ model File {
   id          String   @id @default(uuid())
   name        String
   file_size   Int
+  path        String
   createdAt   DateTime @default(now())
   uploader    User     @relation(fields: [uploader_id], references: [id])
   uploader_id String
