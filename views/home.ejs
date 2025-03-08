@@ -6,35 +6,38 @@
     <link rel="stylesheet" href="/styles.css" />
     <title>UppIt</title>
   </head>
-  <body class="bg-neutral-100">
-    <%- include("./partials/header") %>
-    <main class="flex p-4 gap-8">
-      <section
-        class="w-fit p-4 h-full bg-white rounded-md shadow-md flex flex-col gap-1"
-      >
-        <a class="p-2 rounded-sm shadow-sm" href="/upload">Upload new file</a>
-        <a class="p-2 rounded-sm shadow-sm" href="/upload">New folder</a>
+  <body class="">
+    <%- include("./partials/header")%>
+    <main class="flex">
+      <section class="w-xs p-4 flex flex-col gap-1">
+        <a class="p-2 rounded-sm shadow-sm bg-white" href="/upload"
+          >Upload new file</a
+        >
+        <h2 class="text-xl border-b p-2">Folders</h2>
+        <a class="p-2 rounded-sm shadow-sm bg-white" href="/upload"
+          >New folder</a
+        >
       </section>
-      <section>
-        <h2 class="text-center">My files</h2>
+      <section class="w-xl p-4 bg-white m-4 rounded-md">
+        <h2 class="text-2xl">My files</h2>
         <% if(locals.files.length > 0) { %>
-        <table class="border-separate border-spacing-4">
+        <table class="w-full">
           <thead class="text-left">
             <tr>
               <th
-                class="border border-gray-300 dark:border-gray-600 p-2"
+                class="border-b border-gray-300 dark:border-gray-600 p-2"
                 scope="col"
               >
                 Name
               </th>
               <th
-                class="border border-gray-300 dark:border-gray-600 p-2"
+                class="border-b border-gray-300 dark:border-gray-600 p-2"
                 scope="col"
               >
                 Upload date
               </th>
               <th
-                class="border border-gray-300 dark:border-gray-600 p-2"
+                class="border-b border-gray-300 dark:border-gray-600 p-2"
                 scope="col"
               >
                 Size
@@ -44,13 +47,13 @@
           <tbody>
             <% files.forEach(file => { %>
             <tr>
-              <td class="border border-gray-300 dark:border-gray-700 p-2">
+              <td class="border-b border-gray-300 dark:border-gray-700 p-2">
                 <%= file.name %>
               </td>
-              <td class="border border-gray-300 dark:border-gray-700 p-2">
+              <td class="border-b border-gray-300 dark:border-gray-700 p-2">
                 <%= file.createdAt.toLocaleDateString() %>
               </td>
-              <td class="border border-gray-300 dark:border-gray-700 p-2">
+              <td class="border-b border-gray-300 dark:border-gray-700 p-2">
                 <%= file.file_size %> bytes
               </td>
             </tr>
