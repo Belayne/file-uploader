@@ -9,6 +9,7 @@ import { PrismaClient } from "@prisma/client";
 import indexRouter from "./routes/indexRouter";
 import authRouter from "./routes/authRouter";
 import uploadRouter from "./routes/uploadRouter";
+import folderRouter from "./routes/folderRouter";
 
 dotenv.config();
 configPassport();
@@ -45,5 +46,6 @@ app.use((req, res, next) => {
 app.use(indexRouter);
 app.use(authRouter);
 app.use(uploadRouter);
+app.use(folderRouter);
 
 app.listen(3000, () => console.log("App listening on port 3000"));

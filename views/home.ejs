@@ -4,22 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/folder.js" defer></script>
     <title>UppIt</title>
   </head>
-  <body class="">
+  <body class="overflow-hidden">
     <%- include("./partials/header")%>
     <main class="flex">
       <section class="w-xs p-4 flex flex-col gap-1">
-        <a class="p-2 rounded-sm shadow-sm bg-white" href="/upload"
-          >Upload new file</a
+        <a
+          class="p-2 rounded-sm shadow-sm bg-black text-white font-bold"
+          href="/upload"
+          >Upload</a
         >
         <h2 class="text-xl border-b p-2">Folders</h2>
-        <a class="p-2 rounded-sm shadow-sm bg-white" href="/upload"
-          >New folder</a
+        <button
+          id="createFolderBtn"
+          class="p-2 rounded-sm shadow-sm bg-white text-start"
+          href="/upload"
         >
+          Create folder
+        </button>
+        <% if(locals.folders && locals.folders.length > 0) { %>
+        <nav>
+          <% folders.forEach(folder => { %>
+          <a
+            class="p-2 rounded-sm shadow-sm bg-white block"
+            href="/folder/<%=folder.id%>"
+            ><%=folder.name%></a
+          >
+        </nav>
+        <% })} %>
       </section>
-      <section class="w-xl p-4 bg-white m-4 rounded-md">
-        <h2 class="text-2xl">My files</h2>
+      <section class="w-2xl p-4 bg-white m-4 rounded-md shadow-md">
+        <h2 class="text-2xl">Recent files</h2>
         <% if(locals.files.length > 0) { %>
         <table class="w-full">
           <thead class="text-left">
@@ -56,6 +73,13 @@
               <td class="border-b border-gray-300 dark:border-gray-700 p-2">
                 <%= file.file_size %> bytes
               </td>
+              <td>
+                <button
+                  class="shadow-sm p-1 float-end bg-red-500 text-white rounded-sm"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
             <%})%>
           </tbody>
@@ -64,6 +88,7 @@
         <p>No files present in storage.</p>
         <% } %>
       </section>
+      <%- include("./partials/newFolderForm") %>
     </main>
   </body>
 </html>

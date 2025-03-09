@@ -1,0 +1,30 @@
+<div id="formDiv" class="absolute size-full hidden bg-black/20">
+  <form
+    action="/folder/new"
+    class="flex flex-col bg-white rounded-md shadow-md mx-auto h-fit mt-40 p-5 gap-2"
+    method="POST"
+  >
+    <h2>New folder</h2>
+    <input
+      type="text"
+      class="border rounded-sm p-2 text-md border-neutral-400 bg-white"
+      placeholder="New folder name"
+      name="name"
+      required
+    />
+    <div class="flex justify-end gap-2">
+      <button
+        id="cancelFormBtn"
+        class="p-2 rounded-sm shadow-sm bg-gray-300 hover:cursor-pointer"
+      >
+        Cancel
+      </button>
+      <button
+        class="p-2 rounded-sm shadow-sm bg-black text-white hover:cursor-pointer"
+        type="submit"
+      >
+        Create
+      </button>
+    </div>
+  </form>
+</div>

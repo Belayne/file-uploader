@@ -15,7 +15,14 @@ const indexController = {
           uploader_id: res.locals.user.id,
         },
       });
-      return res.render("home", { files });
+
+      const folders = await client.folder.findMany({
+        where: {
+          owner_id: res.locals.user.id,
+        },
+      });
+
+      return res.render("home", { files, folders });
     }
   },
 };
