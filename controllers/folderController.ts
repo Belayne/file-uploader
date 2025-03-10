@@ -32,6 +32,20 @@ const folderController = {
       return next(error);
     }
   },
+
+  showFolder: async (req, res, next) => {
+    const { folderId } = req.params;
+    try {
+      const folder = await client.folder.findFirst({
+        where: { id: folderId },
+        include: { Files: true },
+      });
+
+      return res.render("folder", { folder, files: folder?.Files });
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export { folderController, folderValidators };

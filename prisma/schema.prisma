@@ -31,6 +31,8 @@ model File {
   createdAt   DateTime @default(now())
   uploader    User     @relation(fields: [uploader_id], references: [id])
   uploader_id String
+  folder      Folder?  @relation(fields: [folder_id], references: [id])
+  folder_id   String?
 }
 
 model Folder {
@@ -38,4 +40,5 @@ model Folder {
   name     String
   owner    User   @relation(fields: [owner_id], references: [id])
   owner_id String
+  Files    File[]
 }

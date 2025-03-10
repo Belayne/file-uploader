@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles.css" />
-    <script src="/folder.js" defer></script>
     <title>UppIt</title>
   </head>
   <body class="overflow-hidden">
@@ -16,42 +15,27 @@
           href="/upload"
           >Upload</a
         >
-        <button
+        <a
           id="createFolderBtn"
           class="p-2 rounded-sm shadow-sm bg-white text-start"
-          href="/upload"
+          href="/home"
         >
-          Create folder
-        </button>
+          Home
+        </a>
       </section>
       <section class="w-2xl p-4 bg-white m-4 rounded-md shadow-md">
-        <h2 class="text-2xl p-2">Home</h2>
+        <h2 class="text-2xl p-2"><%=folder.name%></h2>
         <% if(locals.files.length > 0) { %>
         <table class="w-full">
           <thead class="text-left">
-            <tr class="border-b border-gray-300 dark:border-gray-700">
-              <th class="p-2" scope="col">Name</th>
-              <th class="p-2" scope="col">Upload date</th>
-              <th class="p-2" scope="col">Size</th>
+            <tr class="border-b border-gray-300 dark:border-gray-600 p-2">
+              <th scope="col">Name</th>
+              <th scope="col">Upload date</th>
+              <th scope="col">Size</th>
             </tr>
           </thead>
           <tbody>
-            <% if(locals.folders) { folders.forEach(folder => {%>
-            <tr class="border-b border-gray-300 dark:border-gray-700">
-              <td class="p-2">
-                <a href="/folder/<%=folder.id%>" class="w-full">
-                  <img
-                    class="inline-block align-bottom"
-                    src="/folder_icon.svg"
-                    alt=""
-                  />
-                  <%= folder.name %>
-                </a>
-              </td>
-              <td>-</td>
-              <td>-</td>
-            </tr>
-            <%})} %> <% files.forEach(file => { %>
+            <% files.forEach(file => { %>
             <tr
               class="not-last-of-type:border-b border-gray-300 dark:border-gray-700"
             >
@@ -70,10 +54,9 @@
           </tbody>
         </table>
         <% } else { %>
-        <p>No files present in storage.</p>
+        <p class="p-2">No files present in folder.</p>
         <% } %>
       </section>
-      <%- include("./partials/newFolderForm") %>
     </main>
   </body>
 </html>

@@ -6,10 +6,8 @@ import {
 
 const folderRouter = Router();
 
-folderRouter.post(
-  "/folder/new",
-  folderValidators,
-  folderController.createFolder
-);
+folderRouter.post("/new", folderValidators, folderController.createFolder);
+
+folderRouter.get("/:folderId", folderController.showFolder);
 
 export default folderRouter;

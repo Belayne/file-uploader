@@ -14,6 +14,10 @@ const indexController = {
         where: {
           uploader_id: res.locals.user.id,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 10,
       });
 
       const folders = await client.folder.findMany({
@@ -23,7 +27,7 @@ const indexController = {
       });
 
       return res.render("home", { files, folders });
-    }
+    } else res.redirect("/");
   },
 };
 
