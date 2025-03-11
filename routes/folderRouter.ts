@@ -12,4 +12,6 @@ folderRouter.get("/:folderId", folderController.showFolder);
 
 folderRouter.post("/delete", folderController.deleteFolder);
 
+folderRouter.post("/rename", folderController.renameFolder);
+
 export default folderRouter;

@@ -20,7 +20,7 @@ cancelFormBtn.addEventListener("click", (e) => {
   newFolderDiv.classList.add("hidden");
 });
 
-async function deleteFolder(folderId) {
+function deleteFolder(folderId) {
   const form = document.createElement("form");
   const folderIdInput = document.createElement("input");
 
@@ -33,4 +33,24 @@ async function deleteFolder(folderId) {
   document.querySelector("body").append(form);
   form.submit();
   form.remove();
+}
+
+function renameFolder(folderId, name) {
+  if (name) {
+    const form = document.createElement("form");
+    const folderIdInput = document.createElement("input");
+    const folderNameInpute = document.createElement("input");
+    form.setAttribute("action", "/folder/rename");
+    form.setAttribute("method", "POST");
+    folderIdInput.setAttribute("name", "folderId");
+    folderIdInput.setAttribute("value", folderId);
+    folderNameInpute.setAttribute("name", "folderName");
+    folderNameInpute.setAttribute("value", name);
+    form.append(folderIdInput);
+    form.append(folderNameInpute);
+
+    document.querySelector("body").append(form);
+    form.submit();
+    form.remove();
+  }
 }

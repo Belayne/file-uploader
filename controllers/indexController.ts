@@ -13,11 +13,11 @@ const indexController = {
       const files = await client.file.findMany({
         where: {
           uploader_id: res.locals.user.id,
+          folder: null,
         },
         orderBy: {
           createdAt: "desc",
         },
-        take: 10,
       });
 
       const folders = await client.folder.findMany({

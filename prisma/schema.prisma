@@ -29,16 +29,16 @@ model File {
   file_size   Int
   path        String
   createdAt   DateTime @default(now())
-  uploader    User     @relation(fields: [uploader_id], references: [id])
+  uploader    User     @relation(fields: [uploader_id], references: [id], onDelete: Cascade)
   uploader_id String
-  folder      Folder?  @relation(fields: [folder_id], references: [id])
+  folder      Folder?  @relation(fields: [folder_id], references: [id], onDelete: Cascade)
   folder_id   String?
 }
 
 model Folder {
   id       String @id @default(uuid())
   name     String
-  owner    User   @relation(fields: [owner_id], references: [id])
+  owner    User   @relation(fields: [owner_id], references: [id], onDelete: Cascade)
   owner_id String
   Files    File[]
 }

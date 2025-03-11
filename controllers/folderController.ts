@@ -59,6 +59,31 @@ const folderController = {
       next(error);
     }
   },
+
+  renameFolder: async (req, res, next) => {
+    const { folderName, folderId } = req.body;
+    try {
+      const folder = await client.folder.findFirst({
+        where: {
+          id: folderId,
+        },
+        include: { owner: true },
+      });
+      if (folder) {
+        if (folder?.owner.id === res.locals.user.id) {
+          await client.folder.update({
+            data: { name: folderName },
+            where: { id: folderId },
+          });
+          return res.redirect("/home");
+        } else {
+          return res.status(403).redirect("/");
+        }
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export { folderController, folderValidators };

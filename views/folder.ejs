@@ -25,20 +25,20 @@
         </a>
       </section>
       <section class="w-2xl p-4 bg-white m-4 rounded-md shadow-md">
-        <h2 class="text-2xl p-2"><%=folder.name%></h2>
+        <h2 class="text-2xl p-2"><%= folder.name%></h2>
         <% if(locals.files.length > 0) { %>
         <table class="w-full">
           <thead class="text-left">
-            <tr class="border-b border-gray-300 dark:border-gray-600 p-2">
-              <th scope="col">Name</th>
-              <th scope="col">Upload date</th>
-              <th scope="col">Size</th>
+            <tr class="border-b border-gray-300 dark:border-gray-700">
+              <th class="p-2 w-1/2" scope="col">Name</th>
+              <th class="p-2" scope="col">Upload date</th>
+              <th class="p-2" scope="col">Size</th>
             </tr>
           </thead>
           <tbody>
             <% files.forEach(file => { %>
             <tr
-              class="not-last-of-type:border-b border-gray-300 dark:border-gray-700"
+              class="not-last-of-type:border-b border-gray-300 dark:border-gray-700 group"
             >
               <td class="p-2">
                 <img
@@ -48,8 +48,30 @@
                 />
                 <%= file.name %>
               </td>
-              <td><%= file.createdAt.toLocaleDateString() %></td>
-              <td><%= file.file_size %> bytes</td>
+              <td class="p-2"><%= file.createdAt.toLocaleDateString() %></td>
+              <td class="p-2"><%= file.file_size %> bytes</td>
+              <td class="invisible inline-block p-2 group-hover:visible">
+                <a href="/file/<%= file.id %>" download="<%= file.name %>">
+                  <img
+                    src="/download_icon.svg"
+                    alt="download icon"
+                    class="inline-block hover:cursor-pointer"
+                  />
+                </a>
+                <img
+                  src="/edit_icon.svg"
+                  alt="edit icon"
+                  class="inline-block hover:cursor-pointer"
+                  onclick="(() => {let name = prompt('Enter new file name')
+                  renameFile('<%= file.id %>', name)})()"
+                />
+                <img
+                  src="/delete_icon.svg"
+                  alt="delete icon"
+                  class="inline-block hover:cursor-pointer"
+                  onclick="if(confirm('Delete <%=file.name%>?')) {deleteFile('<%= file.id %>')}"
+                />
+              </td>
             </tr>
             <%})%>
           </tbody>

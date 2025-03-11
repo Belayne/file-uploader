@@ -31,12 +31,12 @@
         <table class="w-full">
           <thead class="text-left">
             <tr class="border-b border-gray-300 dark:border-gray-700">
-              <th class="p-2" scope="col">Name</th>
+              <th class="p-2 w-1/2" scope="col">Name</th>
               <th class="p-2" scope="col">Upload date</th>
               <th class="p-2" scope="col">Size</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody">
             <% if(locals.folders) { folders.forEach(folder => {%>
             <tr class="border-b border-gray-300 dark:border-gray-700 group">
               <td class="p-2">
@@ -44,13 +44,13 @@
                   <img
                     class="inline-block align-bottom"
                     src="/folder_icon.svg"
-                    alt=""
+                    alt="folder icon"
                   />
                   <%= folder.name %>
                 </a>
               </td>
-              <td>-</td>
-              <td>-</td>
+              <td class="p-2">-</td>
+              <td class="p-2">-</td>
               <td class="invisible inline-block p-2 group-hover:visible">
                 <img
                   src="/download_icon.svg"
@@ -61,6 +61,8 @@
                   src="/edit_icon.svg"
                   alt="edit icon"
                   class="inline-block hover:cursor-pointer"
+                  onclick="(() => {let name = prompt('Enter new folder name')
+                  renameFolder('<%= folder.id %>', name)})()"
                 />
                 <img
                   src="/delete_icon.svg"
@@ -82,8 +84,8 @@
                 />
                 <%= file.name %>
               </td>
-              <td><%= file.createdAt.toLocaleDateString() %></td>
-              <td><%= file.file_size %> bytes</td>
+              <td class="p-2"><%= file.createdAt.toLocaleDateString() %></td>
+              <td class="p-2"><%= file.file_size %> bytes</td>
               <td class="invisible inline-block p-2 group-hover:visible">
                 <a href="/file/<%= file.id %>" download="<%= file.name %>">
                   <img

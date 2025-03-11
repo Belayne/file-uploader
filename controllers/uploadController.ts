@@ -2,6 +2,7 @@ import multer from "multer";
 import client from "../prisma/prismaClient";
 import path from "path";
 import { unlink } from "fs/promises";
+import { randomInt, randomUUID } from "crypto";
 
 //Sets multer storage file directory and filename
 const storage = multer.diskStorage({
@@ -9,8 +10,8 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-";
-    cb(null, uniqueSuffix + "-" + file.originalname);
+    const uniquePrefix = randomInt(0, 10000000) + "-";
+    cb(null, uniquePrefix + "-" + file.originalname);
   },
 });
 
