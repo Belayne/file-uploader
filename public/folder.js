@@ -19,3 +19,18 @@ cancelFormBtn.addEventListener("click", (e) => {
   newFolderDiv.classList.remove("flex");
   newFolderDiv.classList.add("hidden");
 });
+
+async function deleteFolder(folderId) {
+  const form = document.createElement("form");
+  const folderIdInput = document.createElement("input");
+
+  form.setAttribute("action", "/folder/delete");
+  form.setAttribute("method", "POST");
+  folderIdInput.setAttribute("name", "folderId");
+  folderIdInput.setAttribute("value", folderId);
+  form.append(folderIdInput);
+
+  document.querySelector("body").append(form);
+  form.submit();
+  form.remove();
+}

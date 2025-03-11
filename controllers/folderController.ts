@@ -46,6 +46,19 @@ const folderController = {
       next(error);
     }
   },
+
+  deleteFolder: async (req, res, next) => {
+    try {
+      const { folderId } = req.body;
+      await client.folder.delete({
+        where: { id: folderId },
+        include: { Files: true },
+      });
+      return res.redirect("/home");
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export { folderController, folderValidators };

@@ -37,7 +37,7 @@
           </thead>
           <tbody>
             <% if(locals.folders) { folders.forEach(folder => {%>
-            <tr class="border-b border-gray-300 dark:border-gray-700">
+            <tr class="border-b border-gray-300 dark:border-gray-700 group">
               <td class="p-2">
                 <a href="/folder/<%=folder.id%>" class="w-full">
                   <img
@@ -50,10 +50,28 @@
               </td>
               <td>-</td>
               <td>-</td>
+              <td class="invisible inline-block p-2 group-hover:visible">
+                <img
+                  src="/download_icon.svg"
+                  alt="download icon"
+                  class="inline-block hover:cursor-pointer"
+                />
+                <img
+                  src="/edit_icon.svg"
+                  alt="edit icon"
+                  class="inline-block hover:cursor-pointer"
+                />
+                <img
+                  src="/delete_icon.svg"
+                  alt="delete icon"
+                  class="inline-block hover:cursor-pointer"
+                  onclick="if(confirm('Delete <%=folder.name%>?')) {deleteFolder('<%= folder.id %>')}"
+                />
+              </td>
             </tr>
             <%})} %> <% files.forEach(file => { %>
             <tr
-              class="not-last-of-type:border-b border-gray-300 dark:border-gray-700"
+              class="not-last-of-type:border-b border-gray-300 dark:border-gray-700 group"
             >
               <td class="p-2">
                 <img
@@ -65,6 +83,23 @@
               </td>
               <td><%= file.createdAt.toLocaleDateString() %></td>
               <td><%= file.file_size %> bytes</td>
+              <td class="invisible inline-block p-2 group-hover:visible">
+                <img
+                  src="/download_icon.svg"
+                  alt="download icon"
+                  class="inline-block hover:cursor-pointer"
+                />
+                <img
+                  src="/edit_icon.svg"
+                  alt="edit icon"
+                  class="inline-block hover:cursor-pointer"
+                />
+                <img
+                  src="/delete_icon.svg"
+                  alt="delete icon"
+                  class="inline-block hover:cursor-pointer"
+                />
+              </td>
             </tr>
             <%})%>
           </tbody>

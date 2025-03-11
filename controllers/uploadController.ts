@@ -4,11 +4,9 @@ import client from "../prisma/prismaClient";
 //Sets multer storage file directory and filename
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log("file: ", file);
     cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    console.log("file: ", file);
     const uniqueSuffix = Date.now() + "-";
     cb(null, uniqueSuffix + "-" + file.originalname);
   },
