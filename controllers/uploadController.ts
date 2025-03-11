@@ -17,23 +17,37 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const uploadController = {
-  showUploadPage: (req, res) => {
+  showUploadPage: async (req, res, next) => {
     if (!res.locals.user) {
       return res.redirect("/");
     }
-    res.render("uploadPage");
+    try {
+      const folders = await client.folder.findMany({
+        where: { owner_id: req.user.id },
+      });
+      res.render("uploadPage", { folders });
+    } catch (error) {
+      next(error);
+    }
   },
 
   uploadFile: upload.single("file"),
 
   handleUpload: async (req, res) => {
+    const { folderId } = req.body;
+    let fileData = {
+      name: req.file.originalname,
+      file_size: req.file.size,
+      path: req.file.path,
+      uploader: { connect: { id: res.locals.user.id } },
+    };
+    if (folderId) {
+      fileData = Object.assign(fileData, {
+        folder: { connect: { id: folderId } },
+      });
+    }
     const file = await client.file.create({
-      data: {
-        name: req.file.originalname,
-        file_size: req.file.size,
-        path: req.file.path,
-        uploader: { connect: { id: res.locals.user.id } },
-      },
+      data: fileData,
     });
     res.redirect("/");
   },

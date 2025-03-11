@@ -9,9 +9,16 @@
   <body>
     <%- include("./partials/header") %>
     <main>
-      <form action="/upload" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5 w-md mx-auto mt-30">
+      <form action="/upload" method="POST" enctype="multipart/form-data" class="mx-auto flex flex-col gap-3 w-xl mt-30 bg-white shadow-md rounded-md p-5">
         <label for="file">Drag file or click to select</label>
         <input required type="file" name="file" id="file" class="h-20 border text-neutral-500 file:bg-neutral-100 file:border-neutral-300 file:border file:text-black file:mr-4 file:rounded-sm file:p-2 hover:cursor-pointer file:cursor-pointer" />
+        <select name="folderId" id="folder" class="border p-2">
+          <option value="">No folder</option>
+          <% if(locals.folders && folders.length > 0) {
+            folders.forEach(folder => {%>
+              <option value="<%=folder.id%>"><%=folder.name%></option>
+              <%})}%>
+        </select>
         <button
         class="bg-black text-white text-md font-bold py-2 rounded-sm hover:cursor-pointer"
         type="submit"
