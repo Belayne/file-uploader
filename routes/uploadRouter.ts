@@ -8,5 +8,7 @@ uploadRouter.post(
   uploadController.uploadFile,
   uploadController.handleUpload
 );
+uploadRouter.get("/file/:fileId", uploadController.downloadFile);
+uploadRouter.post("/file/delete", uploadController.deleteFile);
 
 export default uploadRouter;

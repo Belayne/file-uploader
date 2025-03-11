@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles.css" />
-    <script src="/folder.js" defer></script>
+    <script src="/scripts/folder.js" defer></script>
+    <script src="/scripts/file.js" defer></script>
     <title>UppIt</title>
   </head>
   <body class="overflow-hidden">
@@ -84,11 +85,13 @@
               <td><%= file.createdAt.toLocaleDateString() %></td>
               <td><%= file.file_size %> bytes</td>
               <td class="invisible inline-block p-2 group-hover:visible">
-                <img
-                  src="/download_icon.svg"
-                  alt="download icon"
-                  class="inline-block hover:cursor-pointer"
-                />
+                <a href="/file/<%= file.id %>" download="<%= file.name %>">
+                  <img
+                    src="/download_icon.svg"
+                    alt="download icon"
+                    class="inline-block hover:cursor-pointer"
+                  />
+                </a>
                 <img
                   src="/edit_icon.svg"
                   alt="edit icon"
@@ -98,6 +101,7 @@
                   src="/delete_icon.svg"
                   alt="delete icon"
                   class="inline-block hover:cursor-pointer"
+                  onclick="if(confirm('Delete <%=file.name%>?')) {deleteFile('<%= file.id %>')}"
                 />
               </td>
             </tr>

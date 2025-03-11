@@ -1,5 +1,7 @@
 import multer from "multer";
 import client from "../prisma/prismaClient";
+import path from "path";
+import { unlink } from "fs/promises";
 
 //Sets multer storage file directory and filename
 const storage = multer.diskStorage({
@@ -33,8 +35,63 @@ const uploadController = {
         uploader: { connect: { id: res.locals.user.id } },
       },
     });
-    console.log(file);
     res.redirect("/");
+  },
+
+  downloadFile: async (req, res, next) => {
+    const { fileId } = req.params;
+    try {
+      const file = await client.file.findFirst({
+        where: {
+          id: fileId,
+        },
+        include: { uploader: true },
+      });
+      if (file?.uploader.id === res.locals.user.id) {
+        if (file?.path) {
+          const filePath = path.resolve("./", file?.path);
+          return res.sendFile(filePath);
+        } else {
+          throw new Error("File not found.");
+        }
+      }
+      return res.status(403).redirect("/");
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  deleteFile: async (req, res, next) => {
+    const { fileId } = req.body;
+    try {
+      const file = await client.file.findFirst({
+        where: {
+          id: fileId,
+        },
+        include: { uploader: true },
+      });
+
+      if (file?.uploader.id === res.locals.user.id) {
+        if (file?.path) {
+          //delete from filesystem
+          const filePath = path.resolve("./", file?.path);
+
+          await unlink(filePath);
+
+          //delete from database
+          await client.file.delete({
+            where: {
+              id: fileId,
+            },
+          });
+        } else {
+          throw new Error("File not found.");
+        }
+      }
+      return res.status(403).redirect("/");
+    } catch (error) {
+      next(error);
+    }
   },
 };
 
