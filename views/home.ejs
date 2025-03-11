@@ -19,7 +19,7 @@
         >
         <button
           id="createFolderBtn"
-          class="p-2 rounded-sm shadow-sm bg-white text-start"
+          class="p-2 rounded-sm shadow-sm bg-white text-start hover:cursor-pointer hover:underline"
           href="/upload"
         >
           Create folder
@@ -96,6 +96,8 @@
                   src="/edit_icon.svg"
                   alt="edit icon"
                   class="inline-block hover:cursor-pointer"
+                  onclick="(() => {let name = prompt('Enter new file name')
+                  renameFile('<%= file.id %>', name)})()"
                 />
                 <img
                   src="/delete_icon.svg"

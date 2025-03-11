@@ -93,6 +93,31 @@ const uploadController = {
       next(error);
     }
   },
+
+  renameFile: async (req, res, next) => {
+    const { fileName, fileId } = req.body;
+    try {
+      const file = await client.file.findFirst({
+        where: {
+          id: fileId,
+        },
+        include: { uploader: true },
+      });
+      if (file) {
+        if (file?.uploader.id === res.locals.user.id) {
+          await client.file.update({
+            data: { name: fileName },
+            where: { id: fileId },
+          });
+          return res.redirect("/home");
+        } else {
+          return res.status(403).redirect("/");
+        }
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export default uploadController;
