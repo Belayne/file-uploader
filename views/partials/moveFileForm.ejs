@@ -13,6 +13,7 @@
       required
     />
     <select name="folderId" id="folderId" class="border p-2">
+      <option value="home">No folder</option>
       <% folders.forEach(folder => { %>
       <option value="<%=folder.id%>"><%=folder.name%></option>
       <%}) %>

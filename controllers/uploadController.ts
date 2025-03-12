@@ -77,7 +77,7 @@ const uploadController = {
   },
 
   deleteFile: async (req, res, next) => {
-    const { fileId } = req.body;
+    const { fileId, folderId } = req.body;
     try {
       const file = await client.file.findFirst({
         where: {
@@ -102,6 +102,10 @@ const uploadController = {
         } else {
           throw new Error("File not found.");
         }
+        if (folderId) {
+          return res.redirect("/folder/" + folderId);
+        }
+        return res.redirect("/");
       }
       return res.status(403).redirect("/");
     } catch (error) {
@@ -136,12 +140,25 @@ const uploadController = {
 
   moveFile: async (req, res, next) => {
     const { fileId, folderId } = req.body;
+
     try {
-      await client.file.update({
-        data: { folder_id: folderId },
-        where: { id: fileId },
-      });
-      return res.redirect("/home");
+      if (folderId === "home") {
+        await client.file.update({
+          data: {
+            folder: { disconnect: true },
+          },
+          where: {
+            id: fileId,
+          },
+        });
+        return res.redirect("/home");
+      } else {
+        await client.file.update({
+          data: { folder_id: folderId },
+          where: { id: fileId },
+        });
+        return res.redirect("/folder/" + folderId);
+      }
     } catch (error) {
       next(error);
     }

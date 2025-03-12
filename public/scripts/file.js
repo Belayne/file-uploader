@@ -1,4 +1,4 @@
-function deleteFile(fileId) {
+function deleteFile(fileId, folderId) {
   const form = document.createElement("form");
   const fileIdInput = document.createElement("input");
 
@@ -8,6 +8,12 @@ function deleteFile(fileId) {
   fileIdInput.setAttribute("value", fileId);
   form.append(fileIdInput);
 
+  if (folderId) {
+    const folderIdInput = document.createElement("input");
+    folderIdInput.setAttribute("name", "folderId");
+    folderIdInput.setAttribute("value", folderId);
+    form.append(folderIdInput);
+  }
   document.querySelector("body").append(form);
   form.submit();
   form.remove();

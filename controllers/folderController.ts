@@ -40,8 +40,14 @@ const folderController = {
         where: { id: folderId },
         include: { Files: true },
       });
-
-      return res.render("folder", { folder, files: folder?.Files });
+      const allUserFolders = await client.folder.findMany({
+        where: { owner_id: res.locals.user.id },
+      });
+      return res.render("folder", {
+        folder,
+        files: folder?.Files,
+        folders: allUserFolders,
+      });
     } catch (error) {
       next(error);
     }

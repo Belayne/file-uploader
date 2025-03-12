@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles.css" />
-    <script src="/scripts/folder.js"></script>
+    <script src="/scripts/moveFile.js" defer></script>
+    <script src="/scripts/file.js" defer></script>
     <title>UppIt</title>
   </head>
   <body class="overflow-hidden">
@@ -24,7 +25,7 @@
           Home
         </a>
       </section>
-      <section class="w-2xl p-4 bg-white m-4 rounded-md shadow-md">
+      <section class="w-3xl p-4 bg-white m-4 rounded-md shadow-md">
         <h2 class="text-2xl p-2"><%= folder.name%></h2>
         <% if(locals.files.length > 0) { %>
         <table class="w-full">
@@ -69,7 +70,13 @@
                   src="/delete_icon.svg"
                   alt="delete icon"
                   class="inline-block hover:cursor-pointer"
-                  onclick="if(confirm('Delete <%=file.name%>?')) {deleteFile('<%= file.id %>')}"
+                  onclick="if(confirm('Delete <%=file.name%>?')) {deleteFile('<%= file.id %>', '<%= folder.id %>')}"
+                />
+                <img
+                  src="/folder_move.svg"
+                  alt="move icon"
+                  class="inline-block hover:cursor-pointer"
+                  onclick="showMoveForm('<%= file.id %>')"
                 />
               </td>
             </tr>
@@ -80,6 +87,7 @@
         <p class="p-2">No files present in folder.</p>
         <% } %>
       </section>
+      <%- include("./partials/moveFileForm") %>
     </main>
   </body>
 </html>

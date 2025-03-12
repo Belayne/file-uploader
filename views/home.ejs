@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/styles.css" />
     <script src="/scripts/folder.js" defer></script>
     <script src="/scripts/file.js" defer></script>
+    <script src="/scripts/moveFile.js" defer></script>
     <title>UppIt</title>
   </head>
   <body class="overflow-hidden">
@@ -26,7 +27,7 @@
       </section>
       <section class="w-3xl p-4 bg-white m-4 rounded-md shadow-md">
         <h2 class="text-2xl p-2">Home</h2>
-        <% if(locals.files.length > 0) { %>
+        <% if(locals.files.length > 0 || locals.folders.length > 0) { %>
         <table class="w-full">
           <thead class="text-left">
             <tr class="border-b border-gray-300 dark:border-gray-700">
@@ -118,7 +119,7 @@
           </tbody>
         </table>
         <% } else { %>
-        <p>No files present in storage.</p>
+        <p class="p-2">No files present in storage.</p>
         <% } %>
       </section>
       <%- include("./partials/newFolderForm") %>

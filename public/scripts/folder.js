@@ -1,24 +1,10 @@
 const newFolderBtn = document.getElementById("createFolderBtn");
 const newFolderDiv = document.getElementById("formDiv");
 const cancelFormBtn = document.getElementById("cancelFormBtn");
-const cancelMoveBtn = document.getElementById("cancelMoveBtn");
-const moveFileDiv = document.getElementById("moveFormDiv");
 
 newFolderBtn.addEventListener("click", () => {
   newFolderDiv.classList.remove("hidden");
   newFolderDiv.classList.add("flex");
-});
-
-function showMoveForm(fileId) {
-  document.getElementById("moveFormfileId").setAttribute("value", fileId);
-  moveFileDiv.classList.remove("hidden");
-  moveFileDiv.classList.add("flex");
-}
-
-cancelMoveBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  moveFileDiv.classList.remove("flex");
-  moveFileDiv.classList.add("hidden");
 });
 
 newFolderDiv.addEventListener("click", (e) => {
