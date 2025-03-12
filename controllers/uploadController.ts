@@ -133,6 +133,19 @@ const uploadController = {
       next(error);
     }
   },
+
+  moveFile: async (req, res, next) => {
+    const { fileId, folderId } = req.body;
+    try {
+      await client.file.update({
+        data: { folder_id: folderId },
+        where: { id: fileId },
+      });
+      return res.redirect("/home");
+    } catch (error) {
+      next(error);
+    }
+  },
 };
 
 export default uploadController;

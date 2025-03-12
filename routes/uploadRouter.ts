@@ -11,5 +11,6 @@ uploadRouter.post(
 uploadRouter.get("/file/:fileId", uploadController.downloadFile);
 uploadRouter.post("/file/delete", uploadController.deleteFile);
 uploadRouter.post("/file/rename", uploadController.renameFile);
+uploadRouter.post("/file/move", uploadController.moveFile);
 
 export default uploadRouter;

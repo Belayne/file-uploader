@@ -1,0 +1,35 @@
+<div id="moveFormDiv" class="absolute size-full hidden bg-black/20">
+  <form
+    action="/file/move"
+    class="flex flex-col bg-white w-md rounded-md shadow-md mx-auto h-fit mt-40 p-5 gap-2"
+    method="POST"
+  >
+    <h2>Move file</h2>
+    <input
+      type="text"
+      class="hidden border rounded-sm p-2 text-md border-neutral-400 bg-white"
+      name="fileId"
+      id="moveFormfileId"
+      required
+    />
+    <select name="folderId" id="folderId" class="border p-2">
+      <% folders.forEach(folder => { %>
+      <option value="<%=folder.id%>"><%=folder.name%></option>
+      <%}) %>
+    </select>
+    <div class="flex justify-end gap-2">
+      <button
+        id="cancelMoveBtn"
+        class="p-2 rounded-sm shadow-sm bg-gray-300 hover:cursor-pointer"
+      >
+        Cancel
+      </button>
+      <button
+        class="p-2 rounded-sm shadow-sm bg-black text-white hover:cursor-pointer"
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

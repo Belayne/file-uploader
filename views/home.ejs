@@ -20,12 +20,11 @@
         <button
           id="createFolderBtn"
           class="p-2 rounded-sm shadow-sm bg-white text-start hover:cursor-pointer hover:underline"
-          href="/upload"
         >
           Create folder
         </button>
       </section>
-      <section class="w-2xl p-4 bg-white m-4 rounded-md shadow-md">
+      <section class="w-3xl p-4 bg-white m-4 rounded-md shadow-md">
         <h2 class="text-2xl p-2">Home</h2>
         <% if(locals.files.length > 0) { %>
         <table class="w-full">
@@ -107,6 +106,12 @@
                   class="inline-block hover:cursor-pointer"
                   onclick="if(confirm('Delete <%=file.name%>?')) {deleteFile('<%= file.id %>')}"
                 />
+                <img
+                  src="/folder_move.svg"
+                  alt="move icon"
+                  class="inline-block hover:cursor-pointer"
+                  onclick="showMoveForm('<%= file.id %>')"
+                />
               </td>
             </tr>
             <%})%>
@@ -117,6 +122,7 @@
         <% } %>
       </section>
       <%- include("./partials/newFolderForm") %>
+      <%- include("./partials/moveFileForm") %>
     </main>
   </body>
 </html>
