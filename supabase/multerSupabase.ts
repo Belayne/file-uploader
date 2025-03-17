@@ -9,7 +9,7 @@ class SupabaseStorage {
 	}
 
 	getDestination(req, file, cb) {
-		const path = "/" + randomInt(10000) + "-" + file.originalname;
+		const path = randomInt(10000) + "-" + file.originalname;
 		cb(null, path);
 	}
 
@@ -38,7 +38,7 @@ class SupabaseStorage {
 
 				if (data) {
 					cb(null, {
-						path: data.fullPath,
+						path: data.path,
 						size: fileData.length,
 					});
 				}

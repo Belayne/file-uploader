@@ -6,6 +6,7 @@ import { randomInt, randomUUID } from "crypto";
 import { Request, Response } from "express";
 import supabase from "../supabase/storage";
 import supabaseStorage from "../supabase/multerSupabase";
+import { arrayBuffer } from "stream/consumers";
 
 //Sets multer storage file directory and filename
 /*const storage = multer.diskStorage({
@@ -81,9 +82,16 @@ const uploadController = {
 			});
 			if (file?.uploader.id === res.locals.user.id) {
 				if (file?.path) {
-					const filePath = path.resolve("./", file?.path);
-					console.log(filePath);
-					return res.sendFile(filePath);
+					const filePath = path.join(file.path);
+					const { data, error } = await supabase.storage
+						.from("files")
+						.download(filePath);
+
+					let fileData;
+					await data?.arrayBuffer().then((buf) => {
+						fileData = Buffer.from(buf);
+					});
+					return res.send(fileData);
 				} else {
 					throw new Error("File not found.");
 				}
@@ -111,9 +119,14 @@ const uploadController = {
 			if (file?.uploader.id === res.locals.user.id) {
 				if (file?.path) {
 					//delete from filesystem
-					const filePath = path.resolve("./", file?.path);
+					const filePath = path.join(file?.path);
+					console.log(filePath);
+					const { data, error } = await supabase.storage
+						.from("files")
+						.remove([filePath]);
 
-					await unlink(filePath);
+					console.log(data);
+					if (error) console.log(error);
 
 					//delete from database
 					await client.file.delete({
