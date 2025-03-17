@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request, response } from "express";
 import path from "path";
 import expressSession from "express-session";
 import dotenv from "dotenv";
@@ -10,6 +10,7 @@ import indexRouter from "./routes/indexRouter";
 import authRouter from "./routes/authRouter";
 import uploadRouter from "./routes/uploadRouter";
 import folderRouter from "./routes/folderRouter";
+import HTTPError from "./utils/HTTPError";
 
 dotenv.config();
 configPassport();
@@ -20,32 +21,40 @@ app.use(express.static(path.join(path.dirname("./"), "public")));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-  expressSession({
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000, // a day in ms
-    },
-    secret: process.env.secret,
-    resave: true,
-    saveUninitialized: true,
-    store: new PrismaSessionStore(new PrismaClient(), {
-      checkPeriod: 24 * 60 * 60 * 1000, // a day in ms
-      dbRecordIdIsSessionId: true,
-      dbRecordIdFunction: undefined,
-    }),
-  })
+	expressSession({
+		cookie: {
+			maxAge: 24 * 60 * 60 * 1000, // a day in ms
+		},
+		secret: process.env.secret,
+		resave: true,
+		saveUninitialized: true,
+		store: new PrismaSessionStore(new PrismaClient(), {
+			checkPeriod: 24 * 60 * 60 * 1000, // a day in ms
+			dbRecordIdIsSessionId: true,
+			dbRecordIdFunction: undefined,
+		}),
+	})
 );
 
 app.use(passport.session());
 
 //Make user obj available to all the views if authenticaed
 app.use((req, res, next) => {
-  res.locals.user = req.user;
-  next();
+	res.locals.user = req.user;
+	next();
 });
 
 app.use(indexRouter);
 app.use(authRouter);
 app.use(uploadRouter);
 app.use("/folder", folderRouter);
+
+app.use((err, req, res, next) => {
+	let errorCode = 500;
+	if (err.code && err.code >= 100 && err.code <= 500) {
+		errorCode = err.code;
+	}
+	res.status(errorCode).send(err.message);
+});
 
 app.listen(3000, () => console.log("App listening on port 3000"));
